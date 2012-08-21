@@ -4,7 +4,7 @@ $(function() {
 	canvas = $("#game");
     setup_keydown(canvas);
 	context = setup_game(canvas[0]);
-	main_loop();
+	setInterval(check_queue, 50);
 });
 
 function setup_keydown(canvas) {
@@ -29,10 +29,6 @@ function setup_keydown(canvas) {
     canvas.bind('keydown.space', function() {
         event_queue.push('color');
     });
-}
-
-function main_loop(){
-    setInterval(check_queue, 50);
 }
 
 function check_queue() {
