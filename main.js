@@ -1,5 +1,9 @@
 event_queue = new Array();
 velocity = [0, 0];
+down_state = false;
+up_state = false;
+left_state = false;
+right_state = false;
 
 $(function() {
     div = $("#game");
@@ -10,17 +14,30 @@ $(function() {
 
 function setup_keydown(canvas) {
     canvas.bind('keydown.down', function() {
-        event_queue.push('down');
+        down_state = true;
     });
-    canvas.bind('keydown.left', function() {
-        event_queue.push('left');
-    });
-    canvas.bind('keydown.right', function() {
-        event_queue.push('right');
+    canvas.bind('keyup.down', function() {
+        down_state = false;
     });
     canvas.bind('keydown.up', function() {
-        event_queue.push('up');
+        up_state = true;
     });
+    canvas.bind('keyup.up', function() {
+        up_state = false;
+    });
+    canvas.bind('keydown.left', function() {
+        left_state = true;
+    });
+    canvas.bind('keyup.left', function() {
+        left_state = false;
+    });
+    canvas.bind('keydown.right', function() {
+        right_state = true;
+    });
+    canvas.bind('keyup.right', function() {
+        right_state = false;
+    });
+
     canvas.bind('keydown.p', function() {
         event_queue.push('pause');
     });
@@ -35,45 +52,49 @@ function setup_keydown(canvas) {
 function main_loop(rect) {
     return function() {
         if (event_queue.length > 0) {
-            event = event_queue.pop();
-            console.log(event);
+            events = event_queue.pop();
+            console.log(events);
         }
-        else
-        {
-            event = null;
+
+        rect.setY(rect.getY() - velocity[0]);
+        rect.setX(rect.getX() - velocity[1]);
+
+        if (up_state == true) {
+            if (velocity[0] < 0)
+                velocity[0] = 0;
+            if (velocity[0] < 20)
+                velocity[0] += 4;
+        }
+        else if (down_state == true) {
+            if (velocity[0] > 0)
+                velocity[0] = 0;
+            if (velocity[0] > -20)
+                velocity[0] -= 4;
+        }
+        else {
             velocity[0] /= 2;
             if (velocity[0] > -1 || velocity[0] < 1)
                 velocity[0] = 0;
+        }
+        if (left_state == true) {
+            if (velocity[1] < 0)
+                velocity[1] = 0;
+            if (velocity[1] < 20)
+                velocity[1] += 4;
+        }
+        else if (right_state == true) {
+            if (velocity[1] > 0)
+                velocity[1] = 0;
+            if (velocity[1] > -20)
+                velocity[1] -= 4;
+        }
+        else {
             velocity[1] /= 2;
             if (velocity[1] > -1 || velocity[1] < 1)
                 velocity[1] = 0;
         }
 
-    //console.log(rect);
-    //y = rect.y;
-    //x = rect.x;
-    //console.log(velocity[0]);
-    //console.log(velocity[1]);
-        rect.setY(rect.getY() - velocity[0]);
-        rect.setX(rect.getX() - velocity[1]);
-
-        if (event == 'up') {
-            if (velocity[0] < 20)
-                velocity[0] += 3;
-        }
-        if (event == 'down') {
-            if (velocity[0] > -20)
-                velocity[0] -= 3;
-        }
-        if (event == 'left') {
-            if (velocity[1] < 20)
-                velocity[1] += 3;
-        }
-        if (event == 'right') {
-            if (velocity[1] > -20)
-                velocity[1] -= 3;
-        }
-        if (event == 'restart') {
+        if (events == 'restart') {
             rect.setX(200);
             rect.setY(200);
         }
