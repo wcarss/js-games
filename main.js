@@ -1,6 +1,5 @@
 event_queue = new Array();
-xvelocity = [0, 0];
-yvelocity = [0, 0];
+velocity = [0, 0];
 
 $(function() {
     div = $("#game");
@@ -42,53 +41,37 @@ function main_loop(rect) {
         else
         {
             event = null;
-            yvelocity[0] /= 5;
-            if (yvelocity[0] > -1 || yvelocity[0] < 1)
-                yvelocity[0] = 0;
-            yvelocity[1] /= 5;
-            if (yvelocity[1] > -1 || yvelocity[1] < 1)
-                yvelocity[1] = 0;
-            xvelocity[0] /= 5;
-            if (xvelocity[0] > -1 || yvelocity[0] < 1)
-                xvelocity[0] = 0;
-            xvelocity[1] /= 5;
-            if (xvelocity[1] > -1 || yvelocity[1] < 1)
-                xvelocity[1] = 0;
+            velocity[0] /= 2;
+            if (velocity[0] > -1 || velocity[0] < 1)
+                velocity[0] = 0;
+            velocity[1] /= 2;
+            if (velocity[1] > -1 || velocity[1] < 1)
+                velocity[1] = 0;
         }
 
     //console.log(rect);
     //y = rect.y;
     //x = rect.x;
-    //console.log(rect.getX());
-    //console.log(rect.getY());
+    //console.log(velocity[0]);
+    //console.log(velocity[1]);
+        rect.setY(rect.getY() - velocity[0]);
+        rect.setX(rect.getX() - velocity[1]);
 
         if (event == 'up') {
-            //console.log('up');
-            if (yvelocity[0] < 20)
-                yvelocity[0] += 2;
-            rect.setY(rect.getY()-yvelocity[0]);
-            event == null;
+            if (velocity[0] < 20)
+                velocity[0] += 3;
         }
         if (event == 'down') {
-            //console.log('down');
-            if (yvelocity[1] < 20)
-                yvelocity[1] += 2;
-            rect.setY(rect.getY()+yvelocity[1]);
-            event == null;
+            if (velocity[0] > -20)
+                velocity[0] -= 3;
         }
         if (event == 'left') {
-            //console.log('down');
-            if (xvelocity[0] < 20)
-                xvelocity[0] += 2;
-            rect.setX(rect.getX()-xvelocity[0]);
-            event == null;
+            if (velocity[1] < 20)
+                velocity[1] += 3;
         }
         if (event == 'right') {
-            //console.log('down');
-            if (xvelocity[1] < 20)
-                xvelocity[1] += 2;
-            rect.setX(rect.getX()+xvelocity[1]);
-            event == null;
+            if (velocity[1] > -20)
+                velocity[1] -= 3;
         }
         if (event == 'restart') {
             rect.setX(200);
