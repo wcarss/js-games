@@ -51,6 +51,7 @@ function setup_keydown(canvas) {
 
 function main_loop(rect) {
     return function() {
+        events = null;
         if (event_queue.length > 0) {
             events = event_queue.pop();
             console.log(events);
@@ -136,8 +137,8 @@ function setup_game() {
         strokeWidth: 1
     });
 
-    console.log('x is');
-    console.log(rect.getX());
+//    console.log('x is');
+  //  console.log(rect.getX());
     // add the shape to the layer
     layer.add(bg);
     layer.add(rect);
