@@ -4,24 +4,19 @@ $(function() {
     var view_xsize = 640;
     var view_ysize = 480;
     Crafty.init(view_xsize, view_ysize);
-    //Crafty.viewport.x = 0;
-    Crafty.viewport.y = 480;
-    //Crafty.viewport.init(600, 400);
 
     Crafty.scene("loading", function () {
         Crafty.background("#000");
-        //load takes an array of assets and a callback when complete
         Crafty.load(["../images/bananabomber-sprites.png"], function () {
-            Crafty.scene("main"); //when everything is loaded, run the main scene
+            Crafty.scene("main");
         });
 
-        //black background with some loading text
         Crafty.e("2D, DOM, Text")
             .attr({ 
                 w: 100,
                 h: 20, 
                 x: 150, 
-                y: 120
+                y: 150
             })
             .text("Loading")
             .css({ "text-align": "center" });
@@ -79,7 +74,7 @@ $(function() {
         var dude = Crafty.e("Dude, 2D, DOM, player, Twoway, Gravity, Collision")
                 .attr({
                     x: 500,
-                    y: -100,
+                    y: -1,
                     z: 2,
                     hp: 10,
                     laps: 0
@@ -114,11 +109,9 @@ $(function() {
                     }
                     Crafty.viewport.x = -(this.x) + view_xsize/2;
                     if (Crafty.viewport.y + this.y < 100) {
-                    //    console.log("falling: y = " + (Crafty.viewport.y + this.y));
                         Crafty.viewport.y += 4;
                     }
                     else if (Crafty.viewport.y + this.y > 380) {
-                    //    console.log("rising: y = " + (Crafty.viewport.y + this.y));
                         Crafty.viewport.y -= 16;
                     }                 
                 })
@@ -126,7 +119,7 @@ $(function() {
             Crafty.e("Height, DOM, 2D, Text")
                 .attr({
                         x: 200,
-                        y: -350,
+                        y: 350,
                         z: 2,
                     })
                 .text("Height: " + dude.y)
@@ -135,15 +128,12 @@ $(function() {
             Crafty.e("Highest, DOM, 2D, Text")
                 .attr({
                         x: 200,
-                        y: -350,
+                        y: 350,
                         z: 2,
                         highest: 0
                     })
-                .text("Highest: " + dude.highest)
+                .text("Highest: " + 0)
                 .textColor("#FFF")
-
-        //Crafty.viewport.clampToEntities = false;
-        //Crafty.viewport.follow(dude, 0, 170);
     });
 
     Crafty.scene("loading");
