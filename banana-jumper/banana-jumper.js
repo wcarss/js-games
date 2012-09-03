@@ -1,5 +1,5 @@
 function main() {
-    Crafty.sprite(16, "bananabomber-sprites.png", {
+    Crafty.sprite(16, "../images/bananabomber-sprites.png", {
         grass1: [0, 0],
         grass2: [1, 0],
         grass3: [2, 0],
@@ -28,7 +28,7 @@ function main() {
             land(i*16, j*16);
         }
     }
-    number_of_blocks = Crafty.math.randomInt(0, 20);
+    number_of_blocks = Crafty.math.randomInt(3, 8);
     for (var i = 0; i < number_of_blocks; i++) {
         x_spot = Crafty.math.randomInt(0, 600);
         y_spot = Crafty.math.randomInt(150, 300);
@@ -42,7 +42,7 @@ function main() {
             z: 2,
             hp: 10
         })
-        .twoway(3)
+        .twoway(3.15)
         .gravity("Ground")
         .gravityConst(0.235)
         .bind('EnterFrame', function() {
@@ -77,7 +77,7 @@ function main() {
                         this.text("Lost your bananas!");
                     });
                     setTimeout(function() {
-                        Crafty.scene("Reset");
+                        Crafty.scene("reset");
                     }, 1500);
                 }
             });

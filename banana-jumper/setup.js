@@ -25,7 +25,7 @@ $(function() {
                 console.log(hard_mute);
             }
             if(e.key == Crafty.keys['X']) {
-                Crafty.scene("Reset");
+                Crafty.scene("reset");
             }
         })
 
@@ -33,8 +33,8 @@ $(function() {
     Crafty.scene("loading", function () {
         Crafty.background("#000");
         //load takes an array of assets and a callback when complete
-        Crafty.load(["sprite-sheet-mario.png", "bananabomber-sprites.png", 'music/spike.mp3'], function () {
-            Crafty.audio.add('background', 'music/spike.mp3');
+        Crafty.load(["../images/bananabomber-sprites.png", '../sounds/music/spike.mp3'], function () {
+            Crafty.audio.add('background', '../sounds/music/spike.mp3');
             Crafty.scene("main"); //when everything is loaded, run the main scene
         });
 
@@ -56,7 +56,7 @@ $(function() {
         main();
     });
 
-    Crafty.scene("Reset", function() {
+    Crafty.scene("reset", function() {
         if(Crafty.isPaused())
             Crafty.pause();
         Crafty.scene("main");

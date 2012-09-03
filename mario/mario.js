@@ -1,5 +1,5 @@
 function main() {
-    Crafty.sprite(40, "sprite-sheet-mario.png", {
+    Crafty.sprite(40, "../images/sprite-sheet-mario.png", {
         ffpeace_left: [0, 0],
         left_turn3: [1, 0], 
         left_turn2: [2, 0], 
